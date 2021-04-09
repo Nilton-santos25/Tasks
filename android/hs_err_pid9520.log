@@ -1,0 +1,239 @@
+#
+# A fatal error has been detected by the Java Runtime Environment:
+#
+#  EXCEPTION_ACCESS_VIOLATION (0xc0000005) at pc=0x000000005126909c, pid=9520, tid=0x00000000000020b4
+#
+# JRE version: OpenJDK Runtime Environment (8.0_275-b01) (build 1.8.0_275-b01)
+# Java VM: OpenJDK 64-Bit Server VM (25.275-b01 mixed mode windows-amd64 compressed oops)
+# Problematic frame:
+# V  [jvm.dll+0x909c]
+#
+# Failed to write core dump. Minidumps are not enabled by default on client versions of Windows
+#
+# If you would like to submit a bug report, please visit:
+#   http://bugreport.java.com/bugreport/crash.jsp
+#
+
+---------------  T H R E A D  ---------------
+
+Current thread (0x00000000025e2800):  JavaThread "main" [_thread_in_vm, id=8372, stack(0x0000000002470000,0x0000000002570000)]
+
+siginfo: ExceptionCode=0xc0000005, reading address 0x0000000000000198
+
+Registers:
+RAX=0x0000000000000000, RBX=0x000000001244fd08, RCX=0x000000000256f238, RDX=0x0000000000000006
+RSP=0x000000000256ee08, RBP=0x00000000025e2800, RSI=0x00000000027c9a40, RDI=0x000000001244fa58
+R8 =0x0000000000000002, R9 =0x00000000027c9a40, R10=0x000000000256f2c8, R11=0x000000000000000c
+R12=0x000000000256f230, R13=0x0000000000000002, R14=0x0000000100057610, R15=0x00000000025e2800
+RIP=0x000000005126909c, EFLAGS=0x0000000000010202
+
+Top of Stack: (sp=0x000000000256ee08)
+0x000000000256ee08:   000000005144d468 0000000012294348
+0x000000000256ee18:   0000000051271435 000000000256f070
+0x000000000256ee28:   00000000027c9a40 0000000000000002
+0x000000000256ee38:   000000000263cf30 0000000000000030
+0x000000000256ee48:   000000005134db41 000000001244fd08
+0x000000000256ee58:   000000000000000c 000000001244fa58
+0x000000000256ee68:   00000000025e2800 000000010000000c
+0x000000000256ee78:   000000001244fa58 00000000025e2800
+0x000000000256ee88:   000000000256eff0 000000001244fd08
+0x000000000256ee98:   000000001244fa58 00000000025e2800
+0x000000000256eea8:   0000000800000002 0000000100000030
+0x000000000256eeb8:   000000010000e718 0000000000000000
+0x000000000256eec8:   0000000000000000 000000000256eff0
+0x000000000256eed8:   00000000025e2800 000000000263cf30
+0x000000000256eee8:   000000000256f230 000000000256f180
+0x000000000256eef8:   000000000256f230 0000000002626c10 
+
+Instructions: (pc=0x000000005126909c)
+0x000000005126907c:   41 18 48 8b 0b 48 8b 43 18 48 89 41 20 48 83 c4
+0x000000005126908c:   20 5b c3 cc 4c 8b 11 4d 85 d2 74 65 48 8b 41 08
+0x000000005126909c:   4c 8b 88 98 01 00 00 45 8b 01 41 ff c8 49 63 d0
+0x00000000512690ac:   78 19 49 8b 41 18 48 8d 0c d0 4c 39 11 74 10 41 
+
+
+Register to memory mapping:
+
+RAX=0x0000000000000000 is an unknown value
+RBX=0x000000001244fd08 is pointing into metadata
+RCX=0x000000000256f238 is pointing into the stack for thread: 0x00000000025e2800
+RDX=0x0000000000000006 is an unknown value
+RSP=0x000000000256ee08 is pointing into the stack for thread: 0x00000000025e2800
+RBP=0x00000000025e2800 is a thread
+RSI=0x00000000027c9a40 is an unknown value
+RDI=0x000000001244fa58 is pointing into metadata
+R8 =0x0000000000000002 is an unknown value
+R9 =0x00000000027c9a40 is an unknown value
+R10=0x000000000256f2c8 is pointing into the stack for thread: 0x00000000025e2800
+R11=0x000000000000000c is an unknown value
+R12=0x000000000256f230 is pointing into the stack for thread: 0x00000000025e2800
+R13=0x0000000000000002 is an unknown value
+R14=0x0000000100057610 is pointing into metadata
+R15=0x00000000025e2800 is a thread
+
+
+Stack: [0x0000000002470000,0x0000000002570000],  sp=0x000000000256ee08,  free space=1019k
+Native frames: (J=compiled Java code, j=interpreted, Vv=VM code, C=native code)
+V  [jvm.dll+0x909c]
+
+Java frames: (J=compiled Java code, j=interpreted, Vv=VM code)
+j  java.util.Properties.load0(Ljava/util/Properties$LineReader;)V+37
+j  java.util.Properties.load(Ljava/io/InputStream;)V+10
+j  org.gradle.wrapper.SystemPropertiesHandler.getSystemProperties(Ljava/io/File;)Ljava/util/Map;+36
+j  org.gradle.wrapper.GradleWrapperMain.addSystemProperties(Ljava/io/File;Ljava/io/File;)V+32
+j  org.gradle.wrapper.GradleWrapperMain.main([Ljava/lang/String;)V+130
+v  ~StubRoutines::call_stub
+
+---------------  P R O C E S S  ---------------
+
+Java Threads: ( => current thread )
+  0x00000000144c4000 JavaThread "Service Thread" daemon [_thread_blocked, id=8748, stack(0x00000000148a0000,0x00000000149a0000)]
+  0x0000000012b45000 JavaThread "C1 CompilerThread2" daemon [_thread_blocked, id=5688, stack(0x00000000143a0000,0x00000000144a0000)]
+  0x0000000012b3f800 JavaThread "C2 CompilerThread1" daemon [_thread_blocked, id=1532, stack(0x00000000142a0000,0x00000000143a0000)]
+  0x0000000012b3d800 JavaThread "C2 CompilerThread0" daemon [_thread_blocked, id=9924, stack(0x00000000141a0000,0x00000000142a0000)]
+  0x0000000012b37800 JavaThread "Attach Listener" daemon [_thread_blocked, id=2524, stack(0x00000000140a0000,0x00000000141a0000)]
+  0x0000000012b34800 JavaThread "Signal Dispatcher" daemon [_thread_blocked, id=9456, stack(0x0000000013fa0000,0x00000000140a0000)]
+  0x00000000026dc000 JavaThread "Finalizer" daemon [_thread_blocked, id=7072, stack(0x0000000013d90000,0x0000000013e90000)]
+  0x00000000026d1800 JavaThread "Reference Handler" daemon [_thread_blocked, id=10112, stack(0x0000000013c90000,0x0000000013d90000)]
+=>0x00000000025e2800 JavaThread "main" [_thread_in_vm, id=8372, stack(0x0000000002470000,0x0000000002570000)]
+
+Other Threads:
+  0x0000000012af7800 VMThread [stack: 0x0000000013b90000,0x0000000013c90000] [id=7304]
+  0x00000000144c4800 WatcherThread [stack: 0x00000000149a0000,0x0000000014aa0000] [id=7432]
+
+VM state:not at safepoint (normal execution)
+
+VM Mutex/Monitor currently owned by a thread: None
+
+heap address: 0x00000000fc000000, size: 64 MB, Compressed Oops mode: 32-bit
+Narrow klass base: 0x0000000000000000, Narrow klass shift: 3
+Compressed class space size: 1073741824 Address: 0x0000000100000000
+
+Heap:
+ PSYoungGen      total 18944K, used 1311K [0x00000000feb00000, 0x0000000100000000, 0x0000000100000000)
+  eden space 16384K, 8% used [0x00000000feb00000,0x00000000fec47cf8,0x00000000ffb00000)
+  from space 2560K, 0% used [0x00000000ffd80000,0x00000000ffd80000,0x0000000100000000)
+  to   space 2560K, 0% used [0x00000000ffb00000,0x00000000ffb00000,0x00000000ffd80000)
+ ParOldGen       total 44032K, used 0K [0x00000000fc000000, 0x00000000feb00000, 0x00000000feb00000)
+  object space 44032K, 0% used [0x00000000fc000000,0x00000000fc000000,0x00000000feb00000)
+ Metaspace       used 3239K, capacity 4600K, committed 4864K, reserved 1056768K
+  class space    used 362K, capacity 424K, committed 512K, reserved 1048576K
+
+Card table byte_map: [0x00000000025a0000,0x00000000025d0000] byte_map_base: 0x0000000001dc0000
+
+Marking Bits: (ParMarkBitMap*) 0x0000000051a723c0
+ Begin Bits: [0x0000000011f90000, 0x0000000012090000)
+ End Bits:   [0x0000000012090000, 0x0000000012190000)
+
+Polling page: 0x0000000002570000
+
+CodeCache: size=245760Kb used=1149Kb max_used=1160Kb free=244610Kb
+ bounds [0x00000000027d0000, 0x0000000002a40000, 0x00000000117d0000]
+ total_blobs=296 nmethods=55 adapters=155
+ compilation: enabled
+
+Compilation events (10 events):
+Event: 4.927 Thread 0x0000000012b45000 nmethod 53 0x00000000028ed890 code [0x00000000028eda00, 0x00000000028edcd0]
+Event: 4.927 Thread 0x0000000012b45000   55       1       java.lang.CharacterDataLatin1::getProperties (11 bytes)
+Event: 4.927 Thread 0x0000000012b45000 nmethod 55 0x00000000028ede50 code [0x00000000028edfa0, 0x00000000028ee0f0]
+Event: 4.927 Thread 0x0000000012b45000   52       3       java.lang.Character::toUpperCase (9 bytes)
+Event: 4.927 Thread 0x0000000012b45000 nmethod 52 0x00000000028ee1d0 code [0x00000000028ee340, 0x00000000028ee578]
+Event: 4.927 Thread 0x0000000012b45000   54       3       java.util.TreeMap::parentOf (13 bytes)
+Event: 4.927 Thread 0x0000000012b45000 nmethod 54 0x00000000028ee650 code [0x00000000028ee7a0, 0x00000000028ee930]
+Event: 4.927 Thread 0x0000000012b45000   56       3       java.lang.AbstractStringBuilder::newCapacity (39 bytes)
+Event: 4.927 Thread 0x0000000012b45000 nmethod 56 0x00000000028ee9d0 code [0x00000000028eeb60, 0x00000000028eef48]
+Event: 4.997 Thread 0x0000000012b3d800 nmethod 50 0x00000000028f1e50 code [0x00000000028f1fa0, 0x00000000028f2158]
+
+GC Heap History (0 events):
+No events
+
+Deoptimization events (0 events):
+No events
+
+Classes redefined (0 events):
+No events
+
+Internal exceptions (2 events):
+Event: 2.731 Thread 0x00000000025e2800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.defineClass(Ljava/lang/String;[BII)Ljava/lang/Class; name or signature does not match> (0x00000000feb07cc0) thrown at [C:\cygwin64\tmp\build\source\java-1.8.0-openjdk\tmp\jdk8u\hotspot\src
+Event: 2.731 Thread 0x00000000025e2800 Exception <a 'java/lang/NoSuchMethodError': Method sun.misc.Unsafe.prefetchRead(Ljava/lang/Object;J)V name or signature does not match> (0x00000000feb07fa8) thrown at [C:\cygwin64\tmp\build\source\java-1.8.0-openjdk\tmp\jdk8u\hotspot\src\share\vm\prims\jn
+
+Events (10 events):
+Event: 4.926 loading class java/lang/ProcessEnvironment$CheckedEntry
+Event: 4.926 loading class java/lang/ProcessEnvironment$CheckedEntry done
+Event: 4.926 loading class java/util/TreeMap$Entry
+Event: 4.926 loading class java/util/TreeMap$Entry done
+Event: 4.927 loading class org/gradle/wrapper/SystemPropertiesHandler
+Event: 4.927 loading class org/gradle/wrapper/SystemPropertiesHandler done
+Event: 4.927 loading class java/io/IOException
+Event: 4.928 loading class java/io/IOException done
+Event: 4.929 loading class java/util/Properties$LineReader
+Event: 4.929 loading class java/util/Properties$LineReader done
+
+
+Dynamic libraries:
+0x00007ff67b190000 - 0x00007ff67b1c5000 	C:\Program Files\OpenJDK\openjdk-8u275-b01\bin\java.exe
+0x00007ffbe3cd0000 - 0x00007ffbe3ec5000 	C:\Windows\SYSTEM32\ntdll.dll
+0x00007ffbe2540000 - 0x00007ffbe25fd000 	C:\Windows\System32\KERNEL32.DLL
+0x00007ffbe1710000 - 0x00007ffbe19d9000 	C:\Windows\System32\KERNELBASE.dll
+0x00007ffbe2070000 - 0x00007ffbe211c000 	C:\Windows\System32\ADVAPI32.dll
+0x00007ffbe3830000 - 0x00007ffbe38ce000 	C:\Windows\System32\msvcrt.dll
+0x00007ffbe3670000 - 0x00007ffbe370c000 	C:\Windows\System32\sechost.dll
+0x00007ffbe3b60000 - 0x00007ffbe3c8b000 	C:\Windows\System32\RPCRT4.dll
+0x00007ffbe3440000 - 0x00007ffbe35e0000 	C:\Windows\System32\USER32.dll
+0x00007ffbe1bf0000 - 0x00007ffbe1c12000 	C:\Windows\System32\win32u.dll
+0x00007ffbe3410000 - 0x00007ffbe343a000 	C:\Windows\System32\GDI32.dll
+0x00007ffbe1560000 - 0x00007ffbe166b000 	C:\Windows\System32\gdi32full.dll
+0x00007ffbe1670000 - 0x00007ffbe170d000 	C:\Windows\System32\msvcp_win.dll
+0x00007ffbe1460000 - 0x00007ffbe1560000 	C:\Windows\System32\ucrtbase.dll
+0x00007ffbe0830000 - 0x00007ffbe0aca000 	C:\Windows\WinSxS\amd64_microsoft.windows.common-controls_6595b64144ccf1df_6.0.19041.844_none_ca00b6081b84eb1d\COMCTL32.dll
+0x00007ffbe2490000 - 0x00007ffbe24c0000 	C:\Windows\System32\IMM32.DLL
+0x00000000543e0000 - 0x00000000544b2000 	C:\Program Files\OpenJDK\openjdk-8u275-b01\jre\bin\msvcr100.dll
+0x0000000051260000 - 0x0000000051af4000 	C:\Program Files\OpenJDK\openjdk-8u275-b01\jre\bin\server\jvm.dll
+0x00007ffbe1d30000 - 0x00007ffbe1d38000 	C:\Windows\System32\PSAPI.DLL
+0x00007ffbcef00000 - 0x00007ffbcef09000 	C:\Windows\SYSTEM32\WSOCK32.dll
+0x00007ffbd7cd0000 - 0x00007ffbd7cf7000 	C:\Windows\SYSTEM32\WINMM.dll
+0x00007ffbd98c0000 - 0x00007ffbd98ca000 	C:\Windows\SYSTEM32\VERSION.dll
+0x00007ffbe1dc0000 - 0x00007ffbe1e2b000 	C:\Windows\System32\WS2_32.dll
+0x00007ffbd5890000 - 0x00007ffbd589f000 	C:\Program Files\OpenJDK\openjdk-8u275-b01\jre\bin\verify.dll
+0x00007ffba6ea0000 - 0x00007ffba6ec9000 	C:\Program Files\OpenJDK\openjdk-8u275-b01\jre\bin\java.dll
+0x00007ffba60e0000 - 0x00007ffba60f6000 	C:\Program Files\OpenJDK\openjdk-8u275-b01\jre\bin\zip.dll
+0x00007ffbe26b0000 - 0x00007ffbe2df2000 	C:\Windows\System32\SHELL32.dll
+0x00007ffbdef40000 - 0x00007ffbdf6d0000 	C:\Windows\SYSTEM32\windows.storage.dll
+0x00007ffbe2120000 - 0x00007ffbe2475000 	C:\Windows\System32\combase.dll
+0x00007ffbe0790000 - 0x00007ffbe07bc000 	C:\Windows\SYSTEM32\Wldp.dll
+0x00007ffbe1fc0000 - 0x00007ffbe206e000 	C:\Windows\System32\SHCORE.dll
+0x00007ffbe1f60000 - 0x00007ffbe1fb5000 	C:\Windows\System32\shlwapi.dll
+0x00007ffbe1350000 - 0x00007ffbe136f000 	C:\Windows\SYSTEM32\profapi.dll
+0x00007ffbe0e40000 - 0x00007ffbe1024000 	C:\Windows\SYSTEM32\dbghelp.dll
+0x00007ffbe1c20000 - 0x00007ffbe1ca0000 	C:\Windows\System32\bcryptPrimitives.dll
+
+VM Arguments:
+jvm_args: -Xmx64m -Xms64m -Dorg.gradle.appname=gradlew 
+java_command: org.gradle.wrapper.GradleWrapperMain app:installDebug -PreactNativeDevServerPort=8081
+java_class_path (initial): C:\Users\informatica\Desktop\cursos\curso-react-native\Tasks\android\\gradle\wrapper\gradle-wrapper.jar
+Launcher Type: SUN_STANDARD
+
+Environment Variables:
+JAVA_HOME=C:\Program Files\OpenJDK\openjdk-8u275-b01
+CLASSPATH=C:\Users\informatica\Desktop\cursos\curso-react-native\Tasks\android\\gradle\wrapper\gradle-wrapper.jar
+PATH=C:\Users\informatica\desktop\cursos\curso-react-native\tasks\node_modules\.bin;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;C:\Program Files (x86)\ATI Technologies\ATI.ACE\Core-Static;C:\ProgramData\chocolatey\bin;C:\Program Files\OpenJDK\openjdk-8u275-b01\bin;C:\Program Files\Git\cmd;C:\Program Files\Java\jdk-12.0.2;C:\Program Files\nodejs\;C:\Users\informatica\AppData\Local\Microsoft\WindowsApps;C:\Users\informatica\AppData\Local\Programs\Microsoft VS Code\bin;C:\Users\informatica\AppData\Local\Android\Sdk\platform-tools;C:\Users\informatica\AppData\Roaming\npm;C:\Users\informatica\AppData\Roaming\postgresql;C:\Program Files\PostgreSQL\12\bin
+USERNAME=informatica
+OS=Windows_NT
+PROCESSOR_IDENTIFIER=Intel64 Family 6 Model 37 Stepping 2, GenuineIntel
+
+
+
+---------------  S Y S T E M  ---------------
+
+OS: Windows 10.0 , 64 bit Build 19041 (10.0.19041.804)
+
+CPU:total 4 (initial active 4) (2 cores per cpu, 2 threads per core) family 6 model 37 stepping 2, cmov, cx8, fxsr, mmx, sse, sse2, sse3, ssse3, sse4.1, sse4.2, popcnt, ht, tsc, tscinvbit
+
+Memory: 4k page, physical 8379504k(1470580k free), swap 9690224k(1104636k free)
+
+vm_info: OpenJDK 64-Bit Server VM (25.275-b01) for windows-amd64 JRE (1.8.0_275-b01), built on Nov  6 2020 13:43:37 by "build" with MS VC++ 10.0 (VS2010)
+
+time: Fri Apr 09 14:18:36 2021
+timezone: Hora oficial do Brasil
+elapsed time: 5.230990 seconds (0d 0h 0m 5s)
+
