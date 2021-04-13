@@ -16,16 +16,20 @@ import comonStyles from '../comonStyles'
 
 import AuthInput from '../components/AuthInput'
 
-import { server, showError, showSucess } from '../common'
+import { server, showError, showSuccess } from '../common'
+
+const initialState = {
+    name: '',
+    email: '',
+    password: '',
+    confirmPassword: '',
+    stageNew: false
+}
 
 export default class Auth extends Component {
 
     state = {
-        name: '',
-        email: '',
-        password: '',
-        confirmPassword: '',
-        stageNew: false
+        ...initialState
     }
     
     signinOrSignup = () => {
@@ -45,8 +49,8 @@ export default class Auth extends Component {
                 confirmPassword: this.state.confirmPassword,
             })
 
-            showError('Usuário cadastrado!')
-            this.state({ stageNew: false })
+            showSuccess('Usuário cadastrado!')
+            this.setState({ ...initialState })
         } catch(e) {
             showError(e)
         }
