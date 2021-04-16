@@ -14,12 +14,12 @@ import AsyncStorage from "@react-native-community/async-storage"
 import moment from 'moment' //importando a data atual
 import 'moment/locale/pt-br'
 import Icon from 'react-native-vector-icons/FontAwesome'  //importando os icones para serem usados 
-
+import axios from 'axios'
+import { server, showError } from '../common'
 import comomStyles from '../comonStyles' //importando estilos padroes para a aplicação
 import todayImage from '../../assets/imgs/today.jpg' //importando a imgem que está na pasta assets
 import Task from '../components/Task'
 import AddTask from './AddTasks'
-
 
 const initialState = {
     showDoneTasks: true, //mostra lista de tarefas concluidas
@@ -36,8 +36,22 @@ export default class TaskList extends Component {  //componente baseado em class
 
     componentDidMount = async () => {
         const stateString = await AsyncStorage.getItem('tasksState')
-        const state = JSON.parse(stateString) || initialState
-        this.setState(state, this.filterTasks)
+        const savedState = JSON.parse(stateString) || initialState
+        this.setState({
+            showDoneTasks: state.showDoneTasks
+        }, this.filterTasks)
+
+        this.loadTasks()
+    }
+
+    loadTasks = async () => {
+        try{
+            const maxDate = moment().format('YYYY-MM-DD 23:59:59')
+            const res = await axios.get(`${server}/tasks?date=${maxDate}`)
+            this.setState({ tasks: res.data }, this.filterTasks)
+        } catch(e) {
+            showError(e)
+        }
     }
 
     toggleFilter = () => {
@@ -54,48 +68,53 @@ export default class TaskList extends Component {  //componente baseado em class
         }
 
         this.setState({ visibleTasks })
-        AsyncStorage.setItem('tasksState', JSON.stringify(this.state))
+        AsyncStorage.setItem('tasksState', JSON.stringify({
+            showAddTask: this.state.showDoneTasks
+        }))
     }
 
     //Adicioando uma nova Task no Array
-    addTask = newTask => {
+    addTask =  async newTask => {
         if(!newTask.desc || !newTask.desc.trim()) { //trim tira todos os espacoes vazios que sao digitados no campo
             Alert.alert('Dados Inválidos', 'Descrição nao informada!')
             return
         }
 
-        const tasks = [...this.state.tasks] //operador spread[...] para gerar um clone da aplicação
-        tasks.push({
-            id: Math.random(),
-            desc: newTask.desc,
-            estimateAt: newTask.date,
-            doneAt: null
-        })
-
-        this.setState({ tasks, showAddTask: false }, this.filterTasks)
+        try {
+            await axios.post(`${server}/tasks`, {
+                desc: newTask.desc,
+                estimateAt: newTask.date
+            })
+            
+            this.setState({showAddTask: false }, this.loadTasks)
+        } catch(e){
+            showError(e)
+        }
     }
 
     /*funcao que chama o componente filho tasks que e recebida através de props
     para alterar o estado do componente  que altera as tarefas pelo usuário
     que está no componente TaskList 
     <TouchableWithoutFeedback 
-                onPress={() => props.toggleTask(props.id)}>
+    onPress={() => props.toggleTask(props.id)}>
     */            
-    toggleTask = taskId => {
-        const tasks = [...this.state.tasks]
-       tasks.forEach(task => {
-           if(task.id === taskId) {
-               task.doneAt = task.doneAt ? null : new Date()
-           }
-       })
-
-       this.setState({ tasks })
+    toggleTask = async taskId => {
+        try {
+            await axios.put(`${server}/tasks/${taskId}/toggle`)
+            this.loadTasks()
+        } catch(e) {
+            showError(e)
+        }
     }
 
     //função para deletar as Taks cadastradas
-    deleteTask = id => {
-        const tasks = this.state.tasks.filter(task => task.id !== id)
-        this.setState({ tasks }, this.filterTasks)
+    deleteTask = async taskId => {
+        try {
+            await axios.delete(`${server}/tasks/${taskId}`)
+            this.loadTasks()
+        } catch(e) {
+            showError(e)
+        }
 
     }
 
