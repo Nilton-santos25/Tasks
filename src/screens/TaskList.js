@@ -36,7 +36,7 @@ export default class TaskList extends Component {  //componente baseado em class
 
     componentDidMount = async () => {
         const stateString = await AsyncStorage.getItem('tasksState')
-        const savedState = JSON.parse(stateString) || initialState
+        const state = JSON.parse(stateString) || initialState
         this.setState({
             showDoneTasks: state.showDoneTasks
         }, this.filterTasks)
@@ -46,7 +46,9 @@ export default class TaskList extends Component {  //componente baseado em class
 
     loadTasks = async () => {
         try{
-            const maxDate = moment().format('YYYY-MM-DD 23:59:59')
+            const maxDate = moment()
+                .add({ days: this.props.daysAhead})
+                .format('YYYY-MM-DD 23:59:59')
             const res = await axios.get(`${server}/tasks?date=${maxDate}`)
             this.setState({ tasks: res.data }, this.filterTasks)
         } catch(e) {
@@ -128,13 +130,17 @@ export default class TaskList extends Component {  //componente baseado em class
                 <ImageBackground source={todayImage}
                     style={styles.background}>
                         <View style={styles.iconBar}>
+                            <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
+                                < Icon name='bars'
+                                size={20} color={comomStyles.colors.secondary}/>
+                            </TouchableOpacity>
                             <TouchableOpacity onPress={this.toggleFilter}>
                                 < Icon name={this.state.showDoneTasks ? "eye" : "eye-slash"}
                                     size={20} color={comomStyles.colors.secondary}/>
                             </TouchableOpacity>
                         </View>
                     <View style={styles.titleBar}>
-                        <Text style={styles.title}>Hoje</Text>
+                        <Text style={styles.title}>{this.props.title}</Text>
                         <Text style={styles.subTitle}>{today}</Text> 
                     </View>    
                 </ImageBackground>
@@ -191,7 +197,7 @@ const styles = StyleSheet.create ({
     iconBar: {
         flexDirection: 'row', //define o eixo principal como linha
         marginHorizontal: 20,
-        justifyContent: 'flex-end', //alinha o componente para o fim da linha
+        justifyContent: 'space-between', //alinha o componente para o fim da linha
         marginTop: Platform.OS === 'ios' ? 40 : 10 //configuração baseada no sistema operacional
     },
     addButton: {
