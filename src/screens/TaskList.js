@@ -18,6 +18,11 @@ import axios from 'axios'
 import { server, showError } from '../common'
 import comomStyles from '../comonStyles' //importando estilos padroes para a aplicação
 import todayImage from '../../assets/imgs/today.jpg' //importando a imgem que está na pasta assets
+import tomorrowImage from '../../assets/imgs/tomorrow.jpg' //importando a imgem que está na pasta assets
+import weekImage from '../../assets/imgs/week.jpg' //importando a imgem que está na pasta assets
+import monthImage from '../../assets/imgs/month.jpg' //importando a imgem que está na pasta assets
+
+
 import Task from '../components/Task'
 import AddTask from './AddTasks'
 
@@ -120,6 +125,24 @@ export default class TaskList extends Component {  //componente baseado em class
 
     }
 
+    getImage = () => {
+        switch(this.props.daysAhead) {
+            case 0: return todayImage
+            case 1 : return tomorrowImage
+            case 7 : return weekImage
+            default : return monthImage
+        }
+    }
+
+    getColor = () => {
+        switch(this.props.daysAhead) {
+            case 0: return comomStyles.colors.today
+            case 1 : return comomStyles.colors.tomorrow
+            case 7 : return comomStyles.colors.week
+            default : return comomStyles.colors.month
+        }
+    }
+
     render() {
         const today = moment().locale('pt-br').format('ddd, D [de] MMMM') //armazenando a data em uma constante
         return (
@@ -127,7 +150,7 @@ export default class TaskList extends Component {  //componente baseado em class
                 <AddTask isVisible={this.state.showAddTask}
                    onCancel={() => this.setState({ showAddTask: false })} 
                    onSave={this.addTask} />
-                <ImageBackground source={todayImage}
+                <ImageBackground source={this.getImage()}
                     style={styles.background}>
                         <View style={styles.iconBar}>
                             <TouchableOpacity onPress={() => this.props.navigation.openDrawer()}>
@@ -149,7 +172,10 @@ export default class TaskList extends Component {  //componente baseado em class
                         keyExtractor={item => `${item.id}`} // pegando o id de cada objeto do array state
                         renderItem={({item}) => <Task {...item} onToggleTask={this.toggleTask} onDelete={this.deleteTask}/>} /> 
                 </View>
-                <TouchableOpacity style={styles.addButton}
+                <TouchableOpacity style={[
+                        styles.addButton,
+                        { backgroundColor: this.getColor()
+                    }]}
                     activeOpacity={0.7}
                     onPress={() => this.setState({ showAddTask: true})}>
                     <Icon name="plus" size={20}
@@ -207,7 +233,6 @@ const styles = StyleSheet.create ({
         width: 50,
         height: 50,
         borderRadius: 25,
-        backgroundColor: comomStyles.colors.today,
         justifyContent: 'center',
         alignItems: 'center'
     }
